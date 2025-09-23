@@ -1,3 +1,4 @@
+/* ========== Base from template ========== */
 html {
   font-size: 14px;
 }
@@ -8,7 +9,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,4 +24,45 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+/* ========== Custom theme ========== */
+:root {
+  --primary-color: rgb(46, 58, 135);
+  --primary-color-hex: #2E3A87;
+  --secondary-color: #EC6C41;
+  --text-color: #333;
+  --bg-light: #f8f9fa;
+  --bg-dark: #222;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-light);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.btn-primary:hover {
+  background-color: #1f275c;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

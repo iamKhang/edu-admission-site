@@ -1,0 +1,62 @@
+/* ===============================
+   Footer styles (custom colors)
+================================ */
+.site-footer {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Khối trên */
+  .footer-top {
+    background-color: var(--primary-color);
+  }
+  
+  /* Khối dưới */
+  .footer-bottom {
+    background-color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  
+  /* Thông tin trường */
+  .footer-info p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  /* Logo */
+  .footer-logo h6 {
+    font-size: 0.95rem;
+  }
+  
+  /* Social icons */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .social-icons .social-icon {
+    color: #fff;
+    font-size: 1.2rem;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+  
+  .social-icons .social-icon:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+  }
+  
+  /* Fanpage */
+  .footer-fanpage iframe {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  

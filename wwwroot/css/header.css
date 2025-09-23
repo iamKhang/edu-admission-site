@@ -1,0 +1,99 @@
+/* ===============================
+   Header styles
+================================ */
+.navbar {
+    background-color: var(--primary-color);
+    height: 80px;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Logo */
+  .navbar-brand {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-box {
+    background: #fff;
+    height: 80px;        /* cố định bằng header */
+    display: flex;
+    align-items: center;
+    border-radius: 12px 12px 32px 32px;
+    padding: 0 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .logo-box img {
+    max-height: 60px;
+    display: block;
+  }
+  
+  /* Menu links (desktop) */
+  .navbar .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    padding: 0 1rem;
+    line-height: 80px;
+  }
+  .navbar .nav-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Search button */
+  .btn-search {
+    all: unset;
+    cursor: pointer;
+    background-color: #fff;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-left: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-search i {
+    font-size: 1.2rem;
+  }
+  .btn-search:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+  
+  /* Toggler (burger menu) */
+  .navbar-toggler {
+    border: none;
+    background-color: #fff !important;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgb(46,58,135)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+  }
+  
+  /* Responsive collapse */
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      background-color: var(--primary-color);
+      padding: 1rem;
+      border-radius: 0 0 12px 12px;
+    }
+    .navbar-collapse .nav-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #fff !important;
+      line-height: normal;
+    }
+    .navbar-collapse .nav-link:hover {
+      background-color: #1f275c;
+    }
+  }
+  

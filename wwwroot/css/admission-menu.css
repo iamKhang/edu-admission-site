@@ -1,0 +1,47 @@
+/* ===============================
+   Admission Menu
+================================ */
+.admission-menu {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  
+  .admission-menu h5 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+  }
+  
+  .admission-menu h5 i {
+    color: var(--secondary-color);
+    margin-right: 0.5rem;
+  }
+  
+  .admission-menu .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    color: var(--primary-color);         /* chữ màu primary */
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out, color 0.2s;
+  }
+  
+  .admission-menu .menu-item:hover {
+    background: rgba(46, 58, 135, 0.08); /* nền nhạt theo primary */
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  
+  .admission-menu .menu-item i {
+    font-size: 1.4rem;
+    margin-right: 0.75rem;
+    color: var(--secondary-color);       /* icon màu secondary */
+    flex-shrink: 0;
+  }
+  
