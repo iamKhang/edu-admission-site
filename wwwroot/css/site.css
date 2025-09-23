@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0; /* remove space reserved for old sticky footer */
 }
 
 /* ========== Custom theme ========== */
@@ -39,7 +39,7 @@ body {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: var(--text-color);
-  background-color: var(--bg-light);
+  background-color: #fff;
 }
 
 /* Buttons */
@@ -62,7 +62,6 @@ footer {
   color: #fff;
   text-align: center;
   padding: 1rem;
-  position: absolute;
-  bottom: 0;
+  position: static; /* do not overlay content */
   width: 100%;
 }

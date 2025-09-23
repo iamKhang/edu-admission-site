@@ -228,12 +228,21 @@
         }
 
         .category-card {
-            background: white;
+            background: #fff; /* default white */
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex: 1; /* allow card to fill column so view-all sticks to bottom */
         }
+        .category-card.blue { background: #edf6ff; }
+        /* keep other sections' cards white; target only category cards */
+        .news-list .category-card,
+        .events-list .category-card,
+        .card { background: #fff; }
 
         .category-card:hover {
             transform: translateY(-5px);
@@ -251,11 +260,109 @@
             object-fit: cover;
         }
 
+        /* Equalize card content and push view-all to bottom-right */
+        .category-card .p-4 {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding-bottom: 0; /* keep view-all touching the bottom edge */
+            min-height: 300px; /* ensure consistent height across cards */
+        }
+        .category-card .view-all-link {
+            margin-top: auto;
+            align-self: flex-end;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Reuse CTA background for requested sections */
+        .cta-bg { background: #edf6ff; }
+
         .partners-scroll {
-            background: #f8f9fa;
             padding: 30px 0;
             overflow: hidden;
             white-space: nowrap;
+        }
+
+        /* Video Carousel */
+        .video-carousel {
+            overflow: hidden;
+            border-radius: 12px;
+            height: 300px;
+        }
+        .video-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .video-item {
+            min-width: 100%;
+            position: relative;
+            height: 100%;
+        }
+        .video-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Activities Carousel */
+        .activities-carousel {
+            overflow: hidden;
+            border-radius: 12px;
+            height: 300px;
+        }
+        .activities-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .activity-item {
+            min-width: 100%;
+            position: relative;
+            height: 100%;
+        }
+        .activity-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .activity-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 20px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .carousel-btn:hover {
+            background: rgba(255,255,255,1);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-prev {
+            left: 15px;
+        }
+        .carousel-next {
+            right: 15px;
         }
 
         /* CTA Become Student */
@@ -308,12 +415,12 @@
 
         .partners-track {
             display: inline-block;
-            animation: scroll-left 30s linear infinite;
+            animation: scroll-left 60s linear infinite; /* slower */
         }
 
         .partner-logo {
             display: inline-block;
-            margin: 0 40px;
+            margin: 0 24px; /* tighter spacing to avoid long gaps */
             height: 60px;
         }
 
@@ -321,17 +428,28 @@
             height: 100%;
             width: auto;
             object-fit: contain;
-            filter: grayscale(100%);
-            transition: all 0.3s ease;
+        }
+
+        /* Hard override to ensure partner logos keep original colors */
+        img[src^="/images/partners/"] {
+            filter: none !important;
+            opacity: 1 !important;
+            mix-blend-mode: normal !important;
         }
 
         .partner-logo:hover img {
-            filter: grayscale(0%);
+            transform: scale(1.03);
         }
 
         @@keyframes scroll-left {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
+        }
+
+        /* Make all columns act as vertical stacks so view-all can stick to bottom */
+        .row > [class*="col-"] {
+            display: flex;
+            flex-direction: column;
         }
 
         .view-all-link {
@@ -340,7 +458,8 @@
             font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
-            margin-top: 15px;
+            margin-top: auto; /* push to bottom of column/card */
+            align-self: flex-end;
         }
 
         .view-all-link:hover {
@@ -351,7 +470,7 @@
             margin-left: 5px;
         }
     </style>
-    <section class="banner-carousel container-fluid">
+    <section class="banner-carousel container-fluid px-0">
         <div class="banner-slide active">
             <img src="/images/banner/01_banner.png" alt="Banner 1">
         </div>
@@ -373,259 +492,254 @@
                 <div class="row g-3 mb-4">
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-graduation-cap"></i>
+                            <i class="bi bi-mortarboard"></i>
                             <h6>Thông tin tuyển sinh</h6>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-chart-pie"></i>
+                            <i class="bi bi-graph-up-arrow"></i>
                             <h6>Chỉ tiêu tuyển sinh</h6>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-folder-open"></i>
+                            <i class="bi bi-file-earmark-text"></i>
                             <h6>Hồ sơ tuyển sinh</h6>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-question-circle"></i>
+                            <i class="bi bi-question-circle"></i>
                             <h6>Câu hỏi thường gặp</h6>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-clock"></i>
+                            <i class="bi bi-journal-bookmark"></i>
                             <h6>Tuyển sinh ngắn hạn</h6>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="quick-link-item">
-                            <i class="fas fa-globe"></i>
+                            <i class="bi bi-globe"></i>
                             <h6>Tuyển sinh du học</h6>
                         </div>
                     </div>
                 </div>
-                <div class="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/ynxrjQBiowA" title="HNIVC Video" allowfullscreen></iframe>
+                <div class="video-item position-relative">
+                    <img src="/images/gioi-thieu-chung.jpg" alt="Giới thiệu HNIVC">
+                    <div class="video-description-overlay" style="top: 20px; bottom: auto; background: transparent; box-shadow: none; padding: 0; border-radius: 0;">
+                        <p class="text-white mb-0 fw-bold">Vài nét về HNIVC</p>
+                    </div>
+                    <div class="video-overlay">
+                        <div class="play-button">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 mb-4">
                 <h3 class="section-title"><i class="bi bi-chevron-right"></i>TIN TỨC NỔI BẬT</h3>
-                <div class="news-list">
-                    <div class="news-item">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 1" class="news-image">
-                        <div class="news-content">
-                            <h6>Sinh viên Mỹ phải trả hơn 58.000 USD để học trực tuyến</h6>
-                            <div class="news-date">
-                                <i class="fas fa-calendar-alt"></i> 12/5/2025
+                <div class="category-card news-card">
+                    <div class="p-4">
+                        <div class="news-list flex-grow-1">
+                            <div class="news-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 1" class="news-image">
+                                <div class="news-content">
+                                    <h6>Sinh viên Mỹ phải trả hơn 58.000 USD để học trực tuyến</h6>
+                                    <div class="news-date">
+                                        <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 2" class="news-image">
+                                <div class="news-content">
+                                    <h6>Đáp ứng yêu cầu về chất lượng giáo dục đại học và trách nhiệm giải trình với xã hội</h6>
+                                    <div class="news-date">
+                                        <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 3" class="news-image">
+                                <div class="news-content">
+                                    <h6>Giáo dục New Zealand thuộc top đầu thế giới về phát triển bền vững</h6>
+                                    <div class="news-date">
+                                        <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 4" class="news-image">
+                                <div class="news-content">
+                                    <h6>Đáp ứng yêu cầu về chất lượng giáo dục đại học và trách nhiệm giải trình với xã hội</h6>
+                                    <div class="news-date">
+                                        <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="news-item">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 2" class="news-image">
-                        <div class="news-content">
-                            <h6>Đáp ứng yêu cầu về chất lượng giáo dục đại học và trách nhiệm giải trình với xã hội</h6>
-                            <div class="news-date">
-                                <i class="fas fa-calendar-alt"></i> 12/5/2025
-                            </div>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 3" class="news-image">
-                        <div class="news-content">
-                            <h6>Giáo dục New Zealand thuộc top đầu thế giới về phát triển bền vững</h6>
-                            <div class="news-date">
-                                <i class="fas fa-calendar-alt"></i> 12/5/2025
-                            </div>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rtewAj4K0RbkLAPrt1PvG3q9IQQwZU.png" alt="News 4" class="news-image">
-                        <div class="news-content">
-                            <h6>Đáp ứng yêu cầu về chất lượng giáo dục đại học và trách nhiệm giải trình với xã hội</h6>
-                            <div class="news-date">
-                                <i class="fas fa-calendar-alt"></i> 12/5/2025
-                            </div>
-                        </div>
+                        <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
-                <a href="#" class="view-all-link">
-                    Xem tất cả <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
             <div class="col-lg-4 mb-4">
                 <h3 class="section-title"><i class="bi bi-chevron-right"></i>SỰ KIỆN</h3>
-                <div class="events-list">
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">13</div>
-                            <div class="event-month">tháng 5</div>
+                <div class="category-card events-card">
+                    <div class="p-4">
+                        <div class="events-list">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">13</div>
+                                    <div class="event-month">tháng 5</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">07</div>
+                                    <div class="event-month">tháng 5</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Nhận hồ sơ đăng ký xét tuyển học bạ đợt 1 năm học 2025 từ 01/03 đến 29/04</h6>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">08</div>
+                                    <div class="event-month">tháng 4</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Trắc nghiệm Ngành Nghề Holland, định hướng đúng cho tương lai</h6>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">22</div>
+                                    <div class="event-month">tháng 3</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Trang Thị thử THPT 2025 dành cho học sinh lớp 12</h6>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">16</div>
+                                    <div class="event-month">tháng 2</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">02</div>
+                                    <div class="event-month">tháng 1</div>
+                                </div>
+                                <div class="event-content">
+                                    <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                </div>
+                            </div>
                         </div>
-                        <div class="event-content">
-                            <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                        </div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">07</div>
-                            <div class="event-month">tháng 5</div>
-                        </div>
-                        <div class="event-content">
-                            <h6>Nhận hồ sơ đăng ký xét tuyển học bạ đợt 1 năm học 2025 từ 01/03 đến 29/04</h6>
-                        </div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">08</div>
-                            <div class="event-month">tháng 4</div>
-                        </div>
-                        <div class="event-content">
-                            <h6>Trắc nghiệm Ngành Nghề Holland, định hướng đúng cho tương lai</h6>
-                        </div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">22</div>
-                            <div class="event-month">tháng 3</div>
-                        </div>
-                        <div class="event-content">
-                            <h6>Trang Thị thử THPT 2025 dành cho học sinh lớp 12</h6>
-                        </div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">16</div>
-                            <div class="event-month">tháng 2</div>
-                        </div>
-                        <div class="event-content">
-                            <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                        </div>
-                    </div>
-                    <div class="event-item">
-                        <div class="event-date">
-                            <div class="event-day">02</div>
-                            <div class="event-month">tháng 1</div>
-                        </div>
-                        <div class="event-content">
-                            <h6>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                        </div>
+                        <a href="#" class="view-all-link mt-3">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
-                <a href="#" class="view-all-link">
-                    Xem tất cả <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
         </div>
     </div>
-    <div class="container py-5 bg-light">
+    <div class="container py-5">
         <div class="row">
             <div class="col-lg-4 mb-4">
                 <partial name="_AdmissionMenu" />
             </div>
             <div class="col-lg-4 mb-4">
                 <h3 class="section-title"><i class="bi bi-chevron-right"></i>TIN TUYỂN SINH</h3>
-                <div class="card border-0 mb-3">
-                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-TBP2Q1m37mtIwqZrZEkpNhDi6zmDHB.png" class="card-img-top" alt="Admission News" style="height: 200px; object-fit: cover;">
-                    <div class="card-body p-0 pt-3">
-                        <h6 class="card-title">Trường đại học nào giúp sinh viên tích lũy kinh nghiệm thực tế?</h6>
-                        <small class="text-muted">
+                <div class="category-card">
+                    <div class="category-image">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-TBP2Q1m37mtIwqZrZEkpNhDi6zmDHB.png" alt="Admission News">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="mb-3">Trường đại học nào giúp sinh viên tích lũy kinh nghiệm thực tế?</h6>
+                        <small class="text-muted mb-4 d-block">
                             <i class="fas fa-calendar-alt"></i> 12/5/2025
                         </small>
-                    </div>
-                </div>
-                <div class="list-group list-group-flush">
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
+                        <div class="list-group list-group-flush flex-grow-1">
+                            <div class="list-group-item border-0 bg-transparent px-0 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item border-0 bg-transparent px-0">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-alt"></i> 12/5/2025
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
-                            </div>
-                        </div>
+                        <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
-                <a href="#" class="view-all-link">
-                    Xem tất cả <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
             <div class="col-lg-4 mb-4">
                 <h3 class="section-title"><i class="bi bi-chevron-right"></i>THÔNG BÁO</h3>
-                <div class="list-group list-group-flush">
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
+                <div class="category-card blue">
+                    <div class="p-4">
+                        <div class="list-group list-group-flush flex-grow-1">
+                            <div class="list-group-item border-0 bg-transparent px-0 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted"><i class="fas fa-calendar-alt"></i> 12/5/2025</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item border-0 bg-transparent px-0 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted"><i class="fas fa-calendar-alt"></i> 12/5/2025</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item border-0 bg-transparent px-0 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted"><i class="fas fa-calendar-alt"></i> 12/5/2025</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list-group-item border-0 bg-transparent px-0">
+                                <div class="d-flex align-items-start">
+                                    <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
+                                    <div>
+                                        <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
+                                        <small class="text-muted"><i class="fas fa-calendar-alt"></i> 12/5/2025</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item border-0 bg-transparent px-0">
-                        <div class="d-flex align-items-start">
-                            <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 8px; height: 8px;"></span>
-                            <div>
-                                <h6 class="mb-1 fs-6">Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar-alt"></i> 12/5/2025
-                                </small>
-                            </div>
-                        </div>
+                        <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
-                <a href="#" class="view-all-link">
-                    Xem tất cả <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
         </div>
     </div>
@@ -634,30 +748,79 @@
             <div class="row">
                 <div class="col-lg-6 mb-4">
                     <h3 class="section-title text-white"><i class="bi bi-chevron-right"></i>VIDEO HOẠT ĐỘNG</h3>
-                    <div class="video-item position-relative">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video Activities">
-                        <div class="video-overlay">
-                            <div class="play-button">
-                                <i class="bi bi-play-fill"></i>
+                    <div class="video-carousel position-relative">
+                        <div class="video-track">
+                            <div class="video-item position-relative">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 1" class="video-image">
+                                <div class="video-overlay">
+                                    <div class="play-button">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="video-description-overlay">
+                                    <p class="text-white mb-0">Giới thiệu Trường Cao Đẳng Nghề Hà Nội - HNIVC</p>
+                                </div>
+                            </div>
+                            <div class="video-item position-relative">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 2" class="video-image">
+                                <div class="video-overlay">
+                                    <div class="play-button">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="video-description-overlay">
+                                    <p class="text-white mb-0">Campus Tour HNIVC 2025</p>
+                                </div>
+                            </div>
+                            <div class="video-item position-relative">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 3" class="video-image">
+                                <div class="video-overlay">
+                                    <div class="play-button">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="video-description-overlay">
+                                    <p class="text-white mb-0">Sinh viên chia sẻ trải nghiệm</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="video-description-overlay">
-                            <p class="text-white mb-0">Giới thiệu Trường Cao Đẳng Nghề Hà Nội - HNIVC</p>
-                        </div>
+                        <button class="carousel-btn carousel-prev" onclick="prevVideo()">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn carousel-next" onclick="nextVideo()">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
                     <h3 class="section-title text-white"><i class="bi bi-chevron-right"></i>CÁC HOẠT ĐỘNG</h3>
-                    <div class="video-item position-relative">
-                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activities">
-                        <div class="video-overlay">
-                            <div class="play-button">
-                                <i class="bi bi-play-fill"></i>
+                    <div class="activities-carousel position-relative">
+                        <div class="activities-track">
+                            <div class="activity-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 1" class="activity-image">
+                                <div class="activity-overlay">
+                                    <p class="text-white mb-0">Ngày hội Tuyển sinh HNIVC 2025</p>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 2" class="activity-image">
+                                <div class="activity-overlay">
+                                    <p class="text-white mb-0">Workshop CNTT 2025</p>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 3" class="activity-image">
+                                <div class="activity-overlay">
+                                    <p class="text-white mb-0">Ngày hội Việc làm HNIVC</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="video-description-overlay">
-                            <p class="text-white mb-0">Ngày hội Tuyển sinh HNIVC 2025</p>
-                        </div>
+                        <button class="carousel-btn carousel-prev" onclick="prevActivity()">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn carousel-next" onclick="nextActivity()">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -667,9 +830,9 @@
     <section class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4">
+            <div class="col-lg-4 mb-4">
                     <h3 class="section-title"><i class="bi bi-chevron-right"></i>SINH VIÊN</h3>
-                    <div class="category-card">
+                    <div class="category-card blue">
                         <div class="category-image">
                             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Students">
                         </div>
@@ -678,7 +841,7 @@
                             <small class="text-muted">
                                 <i class="fas fa-calendar-alt"></i> 12/5/2025
                             </small>
-                            <div class="mt-3">
+                            <div class="mt-3 flex-grow-1">
                                 <div class="d-flex align-items-start mb-2">
                                     <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 6px; height: 6px;"></span>
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
@@ -688,15 +851,13 @@
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
                                 </div>
                             </div>
-                            <a href="#" class="view-all-link mt-3">
-                                Xem tất cả <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h3 class="section-title"><i class="bi bi-chevron-right"></i>GIẢNG VIÊN</h3>
-                    <div class="category-card">
+                <div class="category-card blue">
                         <div class="category-image">
                             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Teachers">
                         </div>
@@ -705,7 +866,7 @@
                             <small class="text-muted">
                                 <i class="fas fa-calendar-alt"></i> 12/5/2025
                             </small>
-                            <div class="mt-3">
+                            <div class="mt-3 flex-grow-1">
                                 <div class="d-flex align-items-start mb-2">
                                     <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 6px; height: 6px;"></span>
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
@@ -715,15 +876,13 @@
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
                                 </div>
                             </div>
-                            <a href="#" class="view-all-link mt-3">
-                                Xem tất cả <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h3 class="section-title"><i class="bi bi-chevron-right"></i>TÂN SINH VIÊN</h3>
-                    <div class="category-card">
+                <div class="category-card blue">
                         <div class="category-image">
                             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="New Students">
                         </div>
@@ -732,7 +891,7 @@
                             <small class="text-muted">
                                 <i class="fas fa-calendar-alt"></i> 12/5/2025
                             </small>
-                            <div class="mt-3">
+                            <div class="mt-3 flex-grow-1">
                                 <div class="d-flex align-items-start mb-2">
                                     <span class="badge bg-danger rounded-circle me-2 mt-1" style="width: 6px; height: 6px;"></span>
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
@@ -742,9 +901,7 @@
                                     <small>Thông báo Tuyển sinh Cử nhân Đại học Trực tuyến (Hệ từ xa) năm 2025</small>
                                 </div>
                             </div>
-                            <a href="#" class="view-all-link mt-3">
-                                Xem tất cả <i class="fas fa-arrow-right"></i>
-                            </a>
+                            <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -767,7 +924,8 @@
     </section>
 
     <section class="partners-scroll container">
-        <div class="partners-track">
+        <div class="container">
+            <div class="partners-track">
             <div class="partner-logo">
                 <img src="/images/partners/jump-arena.jpg" alt="Jump Arena">
             </div>
@@ -803,6 +961,7 @@
             </div>
             <div class="partner-logo">
                 <img src="/images/partners/vietcombank.jpg" alt="Vietcombank">
+            </div>
             </div>
         </div>
     </section>
@@ -816,6 +975,48 @@
         function showSlide(index) {
             slides.forEach(slide => slide.classList.remove('active'));
             slides[index].classList.add('active');
+        }
+
+        // Video carousel functionality
+        let videoCurrentIndex = 0;
+        const videoTrack = document.querySelector('.video-track');
+        const videoItems = document.querySelectorAll('.video-item');
+        const totalVideos = videoItems.length;
+
+        function nextVideo() {
+            videoCurrentIndex = (videoCurrentIndex + 1) % totalVideos;
+            updateVideoCarousel();
+        }
+
+        function prevVideo() {
+            videoCurrentIndex = (videoCurrentIndex - 1 + totalVideos) % totalVideos;
+            updateVideoCarousel();
+        }
+
+        function updateVideoCarousel() {
+            const translateX = -videoCurrentIndex * 100;
+            videoTrack.style.transform = `translateX(${translateX}%)`;
+        }
+
+        // Activities carousel functionality
+        let activityCurrentIndex = 0;
+        const activityTrack = document.querySelector('.activities-track');
+        const activityItems = document.querySelectorAll('.activity-item');
+        const totalActivities = activityItems.length;
+
+        function nextActivity() {
+            activityCurrentIndex = (activityCurrentIndex + 1) % totalActivities;
+            updateActivityCarousel();
+        }
+
+        function prevActivity() {
+            activityCurrentIndex = (activityCurrentIndex - 1 + totalActivities) % totalActivities;
+            updateActivityCarousel();
+        }
+
+        function updateActivityCarousel() {
+            const translateX = -activityCurrentIndex * 100;
+            activityTrack.style.transform = `translateX(${translateX}%)`;
         }
 
         function nextSlide() {

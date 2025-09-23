@@ -28,6 +28,13 @@
   .footer-logo h6 {
     font-size: 0.95rem;
   }
+  .footer-logo img {
+    max-height: 80px;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
   
   /* Social icons */
   .social-icons {

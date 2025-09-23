@@ -19,10 +19,10 @@
     <!-- Header -->
     @await Html.PartialAsync("_Header")
 
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         @RenderBody()
     </div>
-    @* @await Html.PartialAsync("_Footer") *@
+    @await Html.PartialAsync("_Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
