@@ -1,47 +1,53 @@
-/* ===============================
-   Admission Menu
-================================ */
+/* Admission Menu - clean rewrite */
 .admission-menu {
-    background: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-  }
-  
-  .admission-menu h5 {
-    font-size: 1rem;
-    text-transform: uppercase;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-  }
-  
-  .admission-menu h5 i {
-    color: var(--secondary-color);
-    margin-right: 0.5rem;
-  }
-  
-  .admission-menu .menu-item {
-    display: flex;
-    align-items: center;
-    padding: 0.6rem 0.75rem;
-    margin-bottom: 0.5rem;
-    border-radius: 6px;
-    color: var(--primary-color);         /* chữ màu primary */
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.2s ease-in-out, color 0.2s;
-  }
-  
-  .admission-menu .menu-item:hover {
-    background: rgba(46, 58, 135, 0.08); /* nền nhạt theo primary */
-    text-decoration: none;
-    color: var(--primary-color);
-  }
-  
-  .admission-menu .menu-item i {
-    font-size: 1.4rem;
-    margin-right: 0.75rem;
-    color: var(--secondary-color);       /* icon màu secondary */
-    flex-shrink: 0;
-  }
-  
+  background: transparent;
+  padding: 0;
+}
+
+.admission-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.admission-title i {
+  color: var(--secondary-color);
+}
+.admission-title span {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+}
+.admission-title-line {
+  flex: 1;
+  height: 1px;
+  background: #e9ecef;
+  margin-left: 0.5rem;
+}
+
+.admission-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.admission-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: #fff;
+  color: #2e3a87;
+  text-decoration: none;
+  border: 1px solid currentColor;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.admission-item i {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+}
+.admission-item:hover {
+  background: rgba(46, 90, 160, 0.06);
+  text-decoration: none;
+}
