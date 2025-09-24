@@ -45,5 +45,29 @@ namespace EduAdmissionSite.Controllers
                 return View(new List<Article>());
             }
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                var article = await _articleRepository.GetByIdAsync(id);
+                if (article == null)
+                {
+                    return NotFound();
+                }
+
+                // Get latest 5 news items for sidebar
+                var latestNews = await _articleRepository.GetTopAsync(5);
+
+                ViewBag.LatestNews = latestNews;
+
+                return View(article);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading article details for ID: {ArticleId}", id);
+                return NotFound();
+            }
+        }
     }
 }

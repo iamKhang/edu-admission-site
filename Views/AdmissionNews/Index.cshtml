@@ -257,16 +257,18 @@
                     @foreach (var article in Model)
                     {
                         <div class="col-md-4">
-                            <div class="article-card">
-                                <img src="@article.ThumbnailUrl" alt="@article.Title" class="article-image">
-                                <div class="article-content">
-                                    <h3 class="article-title">@article.Title</h3>
-                                    <div class="article-date">
-                                        <i class="bi bi-calendar3"></i>
-                                        <span>@article.PublishedAt.ToString("dd/M/yyyy")</span>
+                            <a href="/AdmissionNews/Details/@article.Id" class="text-decoration-none">
+                                <div class="article-card">
+                                    <img src="@article.ThumbnailUrl" alt="@article.Title" class="article-image">
+                                    <div class="article-content">
+                                        <h3 class="article-title">@article.Title</h3>
+                                        <div class="article-date">
+                                            <i class="bi bi-calendar3"></i>
+                                            <span>@article.PublishedAt.ToString("dd/M/yyyy")</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     }
                 </div>
