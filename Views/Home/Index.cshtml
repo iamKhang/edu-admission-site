@@ -659,7 +659,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-item position-relative">
+                <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
                     <img src="/images/gioi-thieu-chung.jpg" alt="Giới thiệu HNIVC">
                     <div class="video-description-overlay" style="top: 20px; bottom: auto; background: transparent; box-shadow: none; padding: 0; border-radius: 0;">
                         <p class="text-white mb-0 fw-bold">Vài nét về HNIVC</p>
@@ -798,8 +798,8 @@
                     <h3 class="section-title text-white"><i class="bi bi-chevron-right"></i>VIDEO HOẠT ĐỘNG</h3>
                     <div class="video-carousel position-relative">
                         <div class="video-track">
-                            <div class="video-item position-relative">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 1" class="video-image">
+                            <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
+                                <img src="/images/image_thumbnail_video.jpg" alt="Video 1" class="video-image">
                                 <div class="video-overlay">
                                     <div class="play-button">
                                         <i class="bi bi-play-fill"></i>
@@ -809,8 +809,8 @@
                                     <p class="text-white mb-0">Giới thiệu Trường Cao Đẳng Nghề Hà Nội - HNIVC</p>
                                 </div>
                             </div>
-                            <div class="video-item position-relative">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 2" class="video-image">
+                            <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
+                                <img src="/images/image_thumbnail_video.jpg" alt="Video 2" class="video-image">
                                 <div class="video-overlay">
                                     <div class="play-button">
                                         <i class="bi bi-play-fill"></i>
@@ -820,8 +820,8 @@
                                     <p class="text-white mb-0">Campus Tour HNIVC 2025</p>
                                 </div>
                             </div>
-                            <div class="video-item position-relative">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-cOxUltv5kCrNXJGQ6tyflCZmdl7IcH.png" alt="Video 3" class="video-image">
+                            <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
+                                <img src="/images/image_thumbnail_video.jpg" alt="Video 3" class="video-image">
                                 <div class="video-overlay">
                                     <div class="play-button">
                                         <i class="bi bi-play-fill"></i>
@@ -1142,11 +1142,65 @@
         // Auto-advance slides every 5 seconds
         setInterval(nextSlide, 5000);
 
+        // Video play functionality
+        function playVideo(videoSrc) {
+            // Create video modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            `;
+            
+            const video = document.createElement('video');
+            video.src = videoSrc;
+            video.controls = true;
+            video.autoplay = true;
+            video.style.cssText = `
+                width: 90%;
+                height: 40vh;
+                min-height: 40vh;
+                max-height: 90vh;
+                border-radius: 8px;
+                object-fit: contain;
+            `;
+            
+            modal.appendChild(video);
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // Close modal with Escape key
+            const closeModal = function(e) {
+                if (e.key === 'Escape') {
+                    document.body.removeChild(modal);
+                    document.removeEventListener('keydown', closeModal);
+                }
+            };
+            document.addEventListener('keydown', closeModal);
+        }
+
         // Video play button functionality
         document.querySelectorAll('.play-button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Add your video play logic here
-                console.log('Play video');
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const videoItem = this.closest('.video-item');
+                if (videoItem && videoItem.onclick) {
+                    videoItem.onclick();
+                }
             });
         });
     </script>
