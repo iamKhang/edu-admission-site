@@ -7,15 +7,28 @@ namespace EduAdmissionSite.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IArticleRepository _articleRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IArticleRepository articleRepository)
     {
         _logger = logger;
+        _articleRepository = articleRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var viewModel = new HomeIndexViewModel
+        {
+            TinTucNoiBat = await _articleRepository.GetByCategoryAsync(ArticleCategory.TinTucNoiBat, 4),
+            TinTuyenSinh = await _articleRepository.GetByCategoryAsync(ArticleCategory.TinTuyenSinh, 5),
+            TinSinhVien = await _articleRepository.GetByCategoryAsync(ArticleCategory.TinSinhVien, 5),
+            TinGiangVien = await _articleRepository.GetByCategoryAsync(ArticleCategory.TinGiangVien, 5),
+            TanSinhVien = await _articleRepository.GetByCategoryAsync(ArticleCategory.TanSinhVien, 5),
+            ThongBao = await _articleRepository.GetByCategoryAsync(ArticleCategory.ThongBao, 6),
+            SuKien = await _articleRepository.GetByCategoryAsync(ArticleCategory.SuKien, 6)
+        };
+
+        return View(viewModel);
     }
 
     public IActionResult Privacy()

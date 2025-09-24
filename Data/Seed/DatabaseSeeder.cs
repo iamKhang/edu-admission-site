@@ -24,8 +24,8 @@ public class DatabaseSeeder
             return; // Data already seeded
 
         // Đường dẫn ảnh (bắt buộc tồn tại trong wwwroot)
-        var img1 = "/images/posts/post_01/img_01.jpg";
-        var img2 = "/images/posts/post_01/img_02.jpg";
+        var img1 = "/images/posts/post_01/img_01.png";
+        var img2 = "/images/posts/post_01/img_02.png";
 
         // Content HTML dùng chung (có cả 2 ảnh)
         var contentHtml = $@"
