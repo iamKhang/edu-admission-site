@@ -678,18 +678,20 @@
                         <div class="news-list flex-grow-1">
                             @foreach (var article in Model.TinTucNoiBat)
                             {
-                                <div class="news-item">
-                                    <img src="@article.ThumbnailUrl" alt="@article.Title" class="news-image">
-                                    <div class="news-content">
-                                        <h6>@article.Title</h6>
-                                        <div class="news-date">
-                                            <i class="fas fa-calendar-alt"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                    <div class="news-item">
+                                        <img src="@article.ThumbnailUrl" alt="@article.Title" class="news-image">
+                                        <div class="news-content">
+                                            <h6>@article.Title</h6>
+                                            <div class="news-date">
+                                                <i class="fas fa-calendar-alt"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             }
                         </div>
-                        <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                        <a href="/News?category=1" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -700,18 +702,20 @@
                         <div class="events-list">
                             @foreach (var article in Model.SuKien)
                             {
-                                <div class="event-item">
-                                    <div class="event-date">
-                                        <div class="event-day">@article.PublishedAt.Day</div>
-                                        <div class="event-month">tháng @article.PublishedAt.Month</div>
+                                <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                    <div class="event-item">
+                                        <div class="event-date">
+                                            <div class="event-day">@article.PublishedAt.Day</div>
+                                            <div class="event-month">tháng @article.PublishedAt.Month</div>
+                                        </div>
+                                        <div class="event-content">
+                                            <h6>@article.Title</h6>
+                                        </div>
                                     </div>
-                                    <div class="event-content">
-                                        <h6>@article.Title</h6>
-                                    </div>
-                                </div>
+                                </a>
                             }
                         </div>
-                        <a href="#" class="view-all-link mt-3">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                        <a href="/Events" class="view-all-link mt-3">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -731,30 +735,34 @@
                             <img src="@Model.TinTuyenSinh.First().ThumbnailUrl" alt="@Model.TinTuyenSinh.First().Title">
                         </div>
                         <div class="p-4">
-                            <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
-                                <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
-                                <div class="first-article-content">
-                                    <h6 class="mb-1 fs-6 first-article-title">@Model.TinTuyenSinh.First().Title</h6>
-                                    <small style="color: #ccc;">
-                                        <i class="bi bi-calendar3"></i> @Model.TinTuyenSinh.First().PublishedAt.ToString("dd/MM/yyyy")
-                                    </small>
+                            <a href="/News/Details/@Model.TinTuyenSinh.First().Id" class="text-decoration-none">
+                                <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
+                                    <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
+                                    <div class="first-article-content">
+                                        <h6 class="mb-1 fs-6 first-article-title">@Model.TinTuyenSinh.First().Title</h6>
+                                        <small style="color: #ccc;">
+                                            <i class="bi bi-calendar3"></i> @Model.TinTuyenSinh.First().PublishedAt.ToString("dd/MM/yyyy")
+                                        </small>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <div class="flex-grow-1">
                                 @foreach (var article in Model.TinTuyenSinh.Skip(1))
                                 {
-                                    <div class="d-flex align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                                        <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
-                                        <div>
-                                            <h6 class="mb-1 fs-6">@article.Title</h6>
-                                            <small style="color: #ccc;">
-                                                <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
-                                            </small>
+                                    <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                        <div class="d-flex align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                            <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
+                                            <div>
+                                                <h6 class="mb-1 fs-6">@article.Title</h6>
+                                                <small style="color: #ccc;">
+                                                    <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 }
                             </div>
-                            <a href="/AdmissionNews" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                            <a href="/News?category=2" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                         </div>
                     }
                 </div>
@@ -766,16 +774,18 @@
                         <div class="flex-grow-1">
                             @foreach (var article in Model.ThongBao)
                             {
-                                <div class="d-flex align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                                    <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
-                                    <div>
-                                        <h6 class="mb-1 fs-6">@article.Title</h6>
-                                        <small style="color: #ccc;"><i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")</small>
+                                <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                    <div class="d-flex align-items-start mb-3 pb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                        <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
+                                        <div>
+                                            <h6 class="mb-1 fs-6">@article.Title</h6>
+                                            <small style="color: #ccc;"><i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")</small>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             }
                         </div>
-                        <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                        <a href="/News?category=256" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -877,30 +887,34 @@
                                 <img src="@Model.TinSinhVien.First().ThumbnailUrl" alt="@Model.TinSinhVien.First().Title">
                             </div>
                             <div class="p-4">
-                                <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
-                                    <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                    <div class="first-article-content">
-                                        <h6 class="mb-1 first-article-title">@Model.TinSinhVien.First().Title</h6>
-                                        <small style="color: #ccc;">
-                                            <i class="bi bi-calendar3"></i> @Model.TinSinhVien.First().PublishedAt.ToString("dd/MM/yyyy")
-                                        </small>
+                                <a href="/News/Details/@Model.TinSinhVien.First().Id" class="text-decoration-none">
+                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
+                                        <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                        <div class="first-article-content">
+                                            <h6 class="mb-1 first-article-title">@Model.TinSinhVien.First().Title</h6>
+                                            <small style="color: #ccc;">
+                                                <i class="bi bi-calendar3"></i> @Model.TinSinhVien.First().PublishedAt.ToString("dd/MM/yyyy")
+                                            </small>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="mt-3 flex-grow-1">
                                     @foreach (var article in Model.TinSinhVien.Skip(1).Take(2))
                                     {
-                                        <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
-                                            <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                            <div>
-                                                <small class="mb-1 d-block">@article.Title</small>
-                                                <small style="color: #ccc; font-size: 0.75rem;">
-                                                    <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
-                                                </small>
+                                        <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                                <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                                <div>
+                                                    <small class="mb-1 d-block">@article.Title</small>
+                                                    <small style="color: #ccc; font-size: 0.75rem;">
+                                                        <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                                    </small>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     }
                                 </div>
-                                <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                                <a href="/News?category=4" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                             </div>
                         }
                     </div>
@@ -914,30 +928,34 @@
                                 <img src="@Model.TinGiangVien.First().ThumbnailUrl" alt="@Model.TinGiangVien.First().Title">
                             </div>
                             <div class="p-4">
-                                <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
-                                    <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                    <div class="first-article-content">
-                                        <h6 class="mb-1 first-article-title">@Model.TinGiangVien.First().Title</h6>
-                                        <small style="color: #ccc;">
-                                            <i class="bi bi-calendar3"></i> @Model.TinGiangVien.First().PublishedAt.ToString("dd/MM/yyyy")
-                                        </small>
+                                <a href="/News/Details/@Model.TinGiangVien.First().Id" class="text-decoration-none">
+                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
+                                        <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                        <div class="first-article-content">
+                                            <h6 class="mb-1 first-article-title">@Model.TinGiangVien.First().Title</h6>
+                                            <small style="color: #ccc;">
+                                                <i class="bi bi-calendar3"></i> @Model.TinGiangVien.First().PublishedAt.ToString("dd/MM/yyyy")
+                                            </small>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="mt-3 flex-grow-1">
                                     @foreach (var article in Model.TinGiangVien.Skip(1).Take(2))
                                     {
-                                        <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
-                                            <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                            <div>
-                                                <small class="mb-1 d-block">@article.Title</small>
-                                                <small style="color: #ccc; font-size: 0.75rem;">
-                                                    <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
-                                                </small>
+                                        <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                                <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                                <div>
+                                                    <small class="mb-1 d-block">@article.Title</small>
+                                                    <small style="color: #ccc; font-size: 0.75rem;">
+                                                        <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                                    </small>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     }
                                 </div>
-                                <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                                <a href="/News?category=8" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                             </div>
                         }
                     </div>
@@ -951,30 +969,34 @@
                                 <img src="@Model.TanSinhVien.First().ThumbnailUrl" alt="@Model.TanSinhVien.First().Title">
                             </div>
                             <div class="p-4">
-                                <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
-                                    <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                    <div class="first-article-content">
-                                        <h6 class="mb-1 first-article-title">@Model.TanSinhVien.First().Title</h6>
-                                        <small style="color: #ccc;">
-                                            <i class="bi bi-calendar3"></i> @Model.TanSinhVien.First().PublishedAt.ToString("dd/MM/yyyy")
-                                        </small>
+                                <a href="/News/Details/@Model.TanSinhVien.First().Id" class="text-decoration-none">
+                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px;">
+                                        <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                        <div class="first-article-content">
+                                            <h6 class="mb-1 first-article-title">@Model.TanSinhVien.First().Title</h6>
+                                            <small style="color: #ccc;">
+                                                <i class="bi bi-calendar3"></i> @Model.TanSinhVien.First().PublishedAt.ToString("dd/MM/yyyy")
+                                            </small>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 <div class="mt-3 flex-grow-1">
                                     @foreach (var article in Model.TanSinhVien.Skip(1).Take(2))
                                     {
-                                        <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
-                                            <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
-                                            <div>
-                                                <small class="mb-1 d-block">@article.Title</small>
-                                                <small style="color: #ccc; font-size: 0.75rem;">
-                                                    <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
-                                                </small>
+                                        <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;">
+                                                <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
+                                                <div>
+                                                    <small class="mb-1 d-block">@article.Title</small>
+                                                    <small style="color: #ccc; font-size: 0.75rem;">
+                                                        <i class="bi bi-calendar3"></i> @article.PublishedAt.ToString("dd/MM/yyyy")
+                                                    </small>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     }
                                 </div>
-                                <a href="#" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+                                <a href="/News?category=16" class="view-all-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                             </div>
                         }
                     </div>

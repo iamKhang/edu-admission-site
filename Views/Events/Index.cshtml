@@ -1,0 +1,277 @@
+@model IEnumerable<Article>
+@{
+    ViewData["Title"] = "Sự Kiện";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự Kiện</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #2E3A87;
+            --secondary-color: #EC6C41;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: white;
+        }
+
+        .breadcrumb-section {
+            background-color: #e3f2fd;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background-color: var(--secondary-color);
+            margin-left: 1rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .event-content {
+            padding: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .event-date {
+            background: #fff5f5;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            min-width: 60px;
+            border: 1px solid #ffe0e0;
+            flex-shrink: 0;
+        }
+
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 0.7rem;
+            color: var(--secondary-color);
+            margin-top: 2px;
+        }
+
+        .event-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .event-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 2.6rem; /* Đảm bảo chiều cao tối thiểu cho 2 dòng */
+        }
+
+        .event-description {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .row > [class*="col-"] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .event-content {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        @@media (max-width: 768px) {
+            .event-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .event-date {
+                align-self: flex-start;
+                min-width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb Section -->
+    <div class="container-fluid breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">TRANG CHỦ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">SỰ KIỆN</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="margin-top: 2rem;">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title"><i class="bi bi-chevron-right"></i>SỰ KIỆN</h2>
+                
+                <div class="row">
+                    @foreach (var article in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="/News/Details/@article.Id" class="text-decoration-none">
+                                <div class="event-card">
+                                    <div class="event-content">
+                                        <div class="event-date">
+                                            <div class="event-day">@article.PublishedAt.Day</div>
+                                            <div class="event-month">tháng @article.PublishedAt.Month</div>
+                                        </div>
+                                        <div class="event-details">
+                                            <h3 class="event-title">@article.Title</h3>
+                                            @if (!string.IsNullOrEmpty(article.Content))
+                                            {
+                                                <div class="event-description">
+                                                    @{
+                                                        var plainText = System.Text.RegularExpressions.Regex.Replace(article.Content, "<.*?>", "");
+                                                        var shortText = plainText.Length > 150 ? plainText.Substring(0, 150) + "..." : plainText;
+                                                    }
+                                                    @shortText
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                                    <i class="bi bi-chevron-double-left"></i>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link" aria-label="Previous">
+                                    <i class="bi bi-chevron-double-left"></i>
+                                </span>
+                            </li>
+                        }
+
+                        @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+                        {
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="?page=@i">@i</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link" aria-label="Next">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

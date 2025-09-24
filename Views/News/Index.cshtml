@@ -1,6 +1,6 @@
 @model IEnumerable<Article>
 @{
-    ViewData["Title"] = "Tin Tuyển Sinh";
+    ViewData["Title"] = ViewBag.CategoryName ?? "Tin Tức";
 }
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tin Tuyển Sinh</title>
+    <title>@ViewBag.CategoryName</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
@@ -240,7 +240,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">TRANG CHỦ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">TIN TUYỂN SINH</li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.CategoryName</li>
                 </ol>
             </nav>
         </div>
@@ -251,13 +251,13 @@
         <div class="row">
             <!-- Main Content -->
             <div class="col-lg-8">
-                <h2 class="section-title"><i class="bi bi-chevron-right"></i>TIN TUYỂN SINH</h2>
+                <h2 class="section-title"><i class="bi bi-chevron-right"></i>@ViewBag.CategoryName</h2>
                 
                 <div class="row g-4">
                     @foreach (var article in Model)
                     {
                         <div class="col-md-4">
-                            <a href="/AdmissionNews/Details/@article.Id" class="text-decoration-none">
+                            <a href="/News/Details/@article.Id" class="text-decoration-none">
                                 <div class="article-card">
                                     <img src="@article.ThumbnailUrl" alt="@article.Title" class="article-image">
                                     <div class="article-content">
@@ -279,7 +279,7 @@
                         @if (ViewBag.CurrentPage > 1)
                         {
                             <li class="page-item">
-                                <a class="page-link" href="?page=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                                <a class="page-link" href="?category=@ViewBag.Category&page=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
                                     <i class="bi bi-chevron-double-left"></i>
                                 </a>
                             </li>
@@ -296,14 +296,14 @@
                         @for (int i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
                         {
                             <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="?page=@i">@i</a>
+                                <a class="page-link" href="?category=@ViewBag.Category&page=@i">@i</a>
                             </li>
                         }
 
                         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
                         {
                             <li class="page-item">
-                                <a class="page-link" href="?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                                <a class="page-link" href="?category=@ViewBag.Category&page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
                                     <i class="bi bi-chevron-double-right"></i>
                                 </a>
                             </li>
