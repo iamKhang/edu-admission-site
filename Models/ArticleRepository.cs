@@ -40,6 +40,24 @@ namespace EduAdmissionSite.Models
             return (items, total);
         }
 
+        public async Task<(IReadOnlyList<Article> Items, int Total)> GetPagedByCategoryAsync(ArticleCategory category, int page, int pageSize)
+        {
+            if (page < 1) page = 1;
+            if (pageSize < 1) pageSize = 10;
+
+            var query = _db.Articles
+                .Where(a => (a.Category & category) != 0);
+            
+            var total = await query.CountAsync();
+            var items = await query
+                .OrderByDescending(a => a.PublishedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, total);
+        }
+
         public async Task<IReadOnlyList<Article>> GetByCategoryAsync(ArticleCategory category, int top = 0)
         {
             IQueryable<Article> query = _db.Articles
