@@ -26,17 +26,30 @@
 
         .video-page-section { padding: 20px 0; }
         .video-page-header { margin-bottom: 30px; }
-        .video-page-title { font-size: 24px; font-weight: bold; color: #333; display: flex; align-items: center; gap: 10px; }
-        .video-page-title-icon { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            width: 36px; 
-            height: 36px; 
-            border-radius: 50%; 
-            background: var(--primary-color); 
-            color: #fff; 
-            font-size: 18px; 
+        .video-page-title { 
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-page-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--secondary-color), transparent);
+            margin-left: 15px;
+            opacity: 0.3;
+        }
+
+        .video-page-title i {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 1.1rem;
         }
 
         .video-page-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
@@ -102,7 +115,7 @@
             <!-- Main -->
             <div class="col-lg-8">
                 <div class="video-page-header">
-                    <h2 class="video-page-title"><span class="video-page-title-icon"><i class="bi bi-camera-video-fill"></i></span>VIDEO</h2>
+                    <h2 class="video-page-title"><i class="bi bi-chevron-right"></i>VIDEO</h2>
                 </div>
 
                 <div class="video-page-grid">

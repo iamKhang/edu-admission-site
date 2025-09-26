@@ -134,6 +134,15 @@
             gap: 0.75rem;
             padding: 0.75rem 0;
             border-bottom: 1px solid #eee;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(2px);
         }
 
         .news-item:last-child {
@@ -162,6 +171,25 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 0.25rem;
+        }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .news-date i {
+            color: var(--primary-color);
+            font-size: 0.7rem;
+        }
+
+        .news-link {
+            text-decoration: none;
+            color: inherit;
         }
 
         .related-articles {
@@ -273,7 +301,7 @@
                 @if (ViewBag.LatestNews != null && ViewBag.LatestNews.Count > 0)
                 {
                     <div class="related-articles">
-                        <h3 class="section-title">Tin liên quan</h3>
+                        <h3 class="section-title">TIN LIÊN QUAN</h3>
                         
                         <div class="row">
                             @{
@@ -322,12 +350,18 @@
                         {
                             @foreach (var news in ViewBag.LatestNews)
                             {
-                                <div class="news-item">
-                                    <img src="@news.ThumbnailUrl" alt="@news.Title" class="news-thumbnail">
-                                    <div class="news-content">
-                                        <div class="news-title">@news.Title</div>
+                                <a href="/News/Details/@news.Id" class="news-link">
+                                    <div class="news-item">
+                                        <img src="@news.ThumbnailUrl" alt="@news.Title" class="news-thumbnail">
+                                        <div class="news-content">
+                                            <div class="news-title">@news.Title</div>
+                                            <div class="news-date">
+                                                <i class="bi bi-calendar3"></i>
+                                                @news.PublishedAt.ToString("dd/MM/yyyy")
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             }
                         }
                     </div>

@@ -14,8 +14,8 @@
             overflow: hidden;
             /* 16:9 aspect ratio - responsive height */
             aspect-ratio: 16 / 9;
-            max-height: 600px; /* Maximum height for very large screens */
-            min-height: 300px; /* Minimum height for small screens */
+            max-height: 800px; /* Further increased maximum height for very large screens */
+            min-height: 450px; /* Further increased minimum height for small screens */
             border-radius: 0 0 12px 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
@@ -52,16 +52,16 @@
         @@media (max-width: 768px) {
             .banner-carousel {
                 aspect-ratio: 16 / 9;
-                min-height: 200px;
-                max-height: 400px;
+                min-height: 320px;
+                max-height: 550px;
             }
         }
 
         @@media (max-width: 576px) {
             .banner-carousel {
                 aspect-ratio: 16 / 9;
-                min-height: 180px;
-                max-height: 320px;
+                min-height: 280px;
+                max-height: 480px;
             }
         }
 
@@ -78,8 +78,8 @@
         @@supports not (aspect-ratio: 16 / 9) {
             .banner-carousel {
                 height: 56.25vw;
-                max-height: 600px;
-                min-height: 300px;
+                max-height: 800px;
+                min-height: 450px;
             }
         }
 
@@ -923,7 +923,7 @@
                         </div>
                         <div class="p-4">
                             <a href="/News/Details/@Model.TinTuyenSinh.First().Id" class="text-decoration-none">
-                                <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 15px;">
+                                <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
                                     <span class="badge rounded-circle me-2 mt-1" style="width: 8px; height: 8px; background-color: var(--secondary-color);"></span>
                                         <div class="first-article-content">
                                             <h6 class="mb-1 fs-6 first-article-title" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.66rem; max-height: 2.66rem;">@Model.TinTuyenSinh.First().Title</h6>
@@ -986,7 +986,7 @@
                     <div class="video-carousel position-relative">
                         <div class="video-track">
                             <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
-                                <img src="/images/image_thumbnail_video.jpg" alt="Video 1" class="video-image">
+                                <img src="https://hnivc.edu.vn/upload/images/2024/thang-10-2024/artboard-1.jpg" alt="Video 1" class="video-image">
                                 <div class="video-overlay">
                                     <div class="play-button">
                                         <i class="bi bi-play-fill"></i>
@@ -1008,7 +1008,7 @@
                                 </div>
                             </div>
                             <div class="video-item position-relative" onclick="playVideo('/videos/video_demo.mp4')">
-                                <img src="/images/image_thumbnail_video.jpg" alt="Video 3" class="video-image">
+                                <img src="https://reviewedu.net/wp-content/uploads/2021/10/cao-dang-nghe-cong-nghe-cao-ha-noi-2.jpg" alt="Video 3" class="video-image">
                                 <div class="video-overlay">
                                     <div class="play-button">
                                         <i class="bi bi-play-fill"></i>
@@ -1032,19 +1032,19 @@
                     <div class="activities-carousel position-relative">
                         <div class="activities-track">
                             <div class="activity-item">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 1" class="activity-image">
+                                <img src="https://trangtuyensinh.com.vn/wp-content/uploads/2022/02/truong-cao-dang-cong-nghe-va-kinh-te-ha-noi.jpg" alt="Activity 1" class="activity-image">
                                 <div class="activity-overlay">
                                     <p class="text-white mb-0">Ngày hội Tuyển sinh HNIVC 2025</p>
                                 </div>
                             </div>
                             <div class="activity-item">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 2" class="activity-image">
+                                <img src="https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/492328154_1240629608063441_3683239121713058258_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=XNssAVFe94YQ7kNvwGy47pS&_nc_oc=AdnAmf-YHVHSYOumfJr9AZiwew3ywuVPLnAQUngsVSZ_0PEZQpnLwGGiWTlvptt3G7w&_nc_zt=23&_nc_ht=scontent.fhan3-4.fna&_nc_gid=lCZrjWF4E9R33iCX5RU1Sw&oh=00_Afayk4mW3Dz7CrFZzoeLaTB61RFZROBJjMXv3ZKIhbl1dg&oe=68DBB99A" alt="Activity 2" class="activity-image">
                                 <div class="activity-overlay">
                                     <p class="text-white mb-0">Workshop CNTT 2025</p>
                                 </div>
                             </div>
                             <div class="activity-item">
-                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-XSsVrrRuENa6wCGbsOz0EFYCGdF5fx.png" alt="Activity 3" class="activity-image">
+                                <img src="https://imgcdn.tapchicongthuong.vn/thumb/w_1000/tcct-media/24/6/14/truong-cao-dang-kinh-te-cong-nghiep-ha-noi-cong-bo-phuong-an-tuyen-sinh-nam-2024_666c29738d122.jpg" alt="Activity 3" class="activity-image">
                                 <div class="activity-overlay">
                                     <p class="text-white mb-0">Ngày hội Việc làm HNIVC</p>
                                 </div>
@@ -1075,7 +1075,7 @@
                             </div>
                             <div class="p-4">
                                 <a href="/News/Details/@Model.TinSinhVien.First().Id" class="text-decoration-none">
-                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 15px;">
+                                    <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
                                         <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
                                         <div class="first-article-content">
                                             <h6 class="mb-1 first-article-title" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.66rem; max-height: 2.66rem;">@Model.TinSinhVien.First().Title</h6>
@@ -1089,7 +1089,7 @@
                                     @foreach (var article in Model.TinSinhVien.Skip(1).Take(2))
                                     {
                                         <a href="/News/Details/@article.Id" class="text-decoration-none">
-                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
+                                            <div class="d-flex align-items-start mb-1" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 4px;">
                                                 <i class="bi bi-dot me-2 mt-1" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
                                                 <div>
                                                     <small class="mb-1 d-block" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.4rem; max-height: 2.4rem;">@article.Title</small>
@@ -1116,7 +1116,7 @@
                             </div>
                             <div class="p-4">
                                 <a href="/News/Details/@Model.TinGiangVien.First().Id" class="text-decoration-none">
-                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 15px;">
+                                    <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
                                         <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
                                         <div class="first-article-content">
                                             <h6 class="mb-1 first-article-title" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.66rem; max-height: 2.66rem;">@Model.TinGiangVien.First().Title</h6>
@@ -1130,7 +1130,7 @@
                                     @foreach (var article in Model.TinGiangVien.Skip(1).Take(2))
                                     {
                                         <a href="/News/Details/@article.Id" class="text-decoration-none">
-                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
+                                            <div class="d-flex align-items-start mb-1" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 4px;">
                                                 <i class="bi bi-dot me-2 mt-1" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
                                                 <div>
                                                     <small class="mb-1 d-block" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.4rem; max-height: 2.4rem;">@article.Title</small>
@@ -1157,7 +1157,7 @@
                             </div>
                             <div class="p-4">
                                 <a href="/News/Details/@Model.TanSinhVien.First().Id" class="text-decoration-none">
-                                    <div class="d-flex align-items-start mb-3" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 15px;">
+                                    <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
                                         <span class="badge rounded-circle me-2 mt-1" style="width: 6px; height: 6px; background-color: var(--secondary-color);"></span>
                                         <div class="first-article-content">
                                             <h6 class="mb-1 first-article-title" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.66rem; max-height: 2.66rem;">@Model.TanSinhVien.First().Title</h6>
@@ -1171,7 +1171,7 @@
                                     @foreach (var article in Model.TanSinhVien.Skip(1).Take(2))
                                     {
                                         <a href="/News/Details/@article.Id" class="text-decoration-none">
-                                            <div class="d-flex align-items-start mb-2" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 8px;">
+                                            <div class="d-flex align-items-start mb-1" style="border-bottom: 1px solid rgba(0,0,0,0.15); padding-bottom: 4px;">
                                                 <i class="bi bi-dot me-2 mt-1" style="color: var(--secondary-color); font-size: 1.5rem;"></i>
                                                 <div>
                                                     <small class="mb-1 d-block" style="color: black; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.4rem; max-height: 2.4rem;">@article.Title</small>
